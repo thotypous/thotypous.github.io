@@ -1,0 +1,6 @@
+root: /
+permalink: /:year-:month/:title/
+highlighter: "pygments"
+paginate: 5
+
+title: Matias Blog
