@@ -32,6 +32,10 @@ in a reasonable time when compared to the traditional LPT interface.
 
 <!--more-->
 
+The complete source code needed for conducting the experiments here described
+is available at the [rtai-irq-latency](https://github.com/thotypous/rtai-irq-latency)
+repository.
+
 ## Similar work
 
 Measuring IRQ latency for a LPT interface in RTAI is an old and
@@ -140,7 +144,7 @@ A periodic real-time thread running at each $$100\mu\mathrm{s}$$ is implemented
 by the `thread_main` function both in PCIe and LPT modules. It registers
 the current time instant using `rt_get_time_ns` and then sends a signal to
 the hardware asking for an IRQ to be sent. After the IRQ is dispatched by the
-hardware, it is handled by an `irq_handler` real-time interrupt service routine.
+hardware, it is handled by the `irq_handler` real-time interrupt service routine.
 As shown by the figures below, the first thing that this routine does (after
 the conventional C function prologue) is measuring the current time instant.
 These two measured time instants are subtracted from each other in order to
