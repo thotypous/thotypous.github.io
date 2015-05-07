@@ -295,3 +295,9 @@ h3 {
     margin: 0 auto;
   }
 }
+note {
+  opacity: 0.4;
+}
+.highlight {
+  width: 100%;
+}
