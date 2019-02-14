@@ -6,3 +6,5 @@ paginate: 5
 title: Matias Blog
 description: "From electrons to ideas: random thoughts about anything computable"
 url: https://pmatias.me
+
+plugins: [jekyll-paginate]
