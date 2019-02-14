@@ -123,7 +123,7 @@ The [locale data](https://github.com/unicode-org/icu/blame/5c8960e59e1f71b102fa6
 
 However, an interesting fact is that current icu4c code automatically [inserts a no-break space](https://github.com/unicode-org/icu/blame/b098078ab8a73e2f65c67accdb0bee4fd170044a/icu4c/source/data/curr/root.txt#L203) between the currency symbol and the numeric value even if it is not present in the pattern specified in locale data. Since when does this happen? The [new formatter](https://unicode-org.atlassian.net/browse/ICU-13634) responsible for [adding the spacing](https://github.com/unicode-org/icu/blame/249e03ccd6909a7528afdd0cbf8814a0ae9e3801/icu4c/source/i18n/number_modifiers.cpp#L377-L395) was first commited on 26 Sep 2017, and the [unit tests](https://github.com/unicode-org/icu/blame/b6074fe044f675f63475d25d9a5c149cf9f1dd1a/icu4c/source/test/intltest/numrgts.cpp#L2391-L2394) were fixed on 17 Apr 2018. So it came only after the change in locale data.
 
-Since when does Android ship this locale data? Android 9 [has it](https://android.googlesource.com/platform/external/icu/+/android-9.0.0_r1/icu4c/source/data/locales/pt.txt#33) since the first release. Android 8 [does not have it](https://android.googlesource.com/platform/external/icu/+/android-8.1.0_r61/icu4c/source/data/locales/pt.txt#33) even in recent releases.
+Since when does Android ship this locale data? Android 9 [has it](https://android.googlesource.com/platform/external/icu/+/android-9.0.0_r1/icu4c/source/data/locales/pt.txt#33) since the first release. Android 8 [does not have it](https://android.googlesource.com/platform/external/icu/+/android-8.1.0_r61/icu4c/source/data/locales/pt.txt#32) even in recent releases.
 
 ## How come the app developers did not notice it for several months?
 
