@@ -9,7 +9,7 @@ Azul Linhas Aéreas is a Brazilian airline which offers cheaper tickets for cust
 
 <!--more-->
 
-## Problem statement
+# Problem statement
 
 When booking a flight using their website, Azul charges a "convenience fee" of about 60 BRL per passenger. It is funny how the "convenience fee" is often more expensive than the embarkation fee charged by the airports.
 
@@ -24,7 +24,7 @@ However, you cannot conclude the booking since the app crashes just after you se
 <img src="/postdata/2019-02-13/payment-bug.png" alt="The app crashes after selecting the payment method" width="284" />
 
 
-## Debugging the issue
+# Debugging the issue
 
 Since the app is suddenly being closed, the first hypothesis which comes at mind is that some uncaught exception is being fired and the app has no crash reporting mechanism (or has a silent one).
 
@@ -73,7 +73,7 @@ How amusing! They trim the string. So why is there leading whitespace?
 After opening logcat's output in a hex editor, we realize the whitespace char is composed by the bytes `c2 a0` (UTF-8), which correspond to Unicode code point [00A0 (no-break space)](http://www.fileformat.info/info/unicode/char/00a0/index.htm). The `trim` method does not seem to strip it.
 
 
-## Quick and dirty fix
+# Quick and dirty fix
 
 The decompiler is rarely able to generate well-formed enough Java to be recompiled into a class. Therefore, it is easier to work directly in bytecode, by changing Bytecode Viewer's pane mode to editable Smali/DEX.
 
@@ -102,22 +102,22 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/.android/
 Finally, we just need to uninstall the original app and install our modified apk.
 
 
-## Results
+# Results
 
 I was able to book a flight for my wife and me and paid only 110.38 BRL (embarkation fee for two passengers), whereas, if we had booked from the website, we would need to pay 229.98 BRL.
 
 
-## Discussion
+# Discussion
 
 So far so good, after all, we fixed the bug and saved some money. But, as a scientist, you might be asking yourself some questions.
 
-### What is the root cause?
+## What is the root cause?
 
 The first interesting fact is that the issue does not happen if the `removerSeparadoresDeValor` is run in OpenJDK. It turns out OpenJDK has a [pure Java](https://github.com/unofficial-openjdk/openjdk/blob/2dfd47837ce6b900a0b3c9d6f09fbe1f62176c29/src/java.base/share/classes/java/text/DecimalFormat.java#L818-L842) implementation of `DecimalFormat`. Looking at the [locale data](https://github.com/unofficial-openjdk/openjdk/blame/ba116d532f477a597cbebfd5551b61a408136618/src/jdk.localedata/share/classes/sun/text/resources/ext/FormatData_pt_BR.java#L54) it uses, we can see it inserts an ordinary space (`\u0020`) after the currency symbol (`\u00A4`).
 
 On the other hand, Android's implementation of `DecimalFormat` is a [wrapper for icu4c](https://github.com/AndroidSDKSources/android-sdk-sources-for-api-level-28/blob/809dd8b7822332cdbc68939d777eb70a6951908a/java/text/DecimalFormat.java#L705-L714). Looking at the [locale data](https://github.com/unicode-org/icu/blame/5c8960e59e1f71b102fa6ecc4ed4dbd36019d7ce/icu4c/source/data/locales/pt.txt#L35) it uses, we can see it inserts a no-break space (`\u00A0`) after the currency symbol (`\u00A4`).
 
-### Since when the bug started to manifest itself?
+## Since when the bug started to manifest itself?
 
 The [locale data](https://github.com/unicode-org/icu/blame/5c8960e59e1f71b102fa6ecc4ed4dbd36019d7ce/icu4c/source/data/locales/pt.txt#L35) responsible for currency format was changed for the last time on 26 Sep 2017. [Before the change](https://github.com/unicode-org/icu/blob/ad11ee3a709e422d6e71ceb1e2f5ef45a5d3af12/icu4c/source/data/locales/pt.txt#L32), there was no whitespace at all between the currency symbol and the numeric value.
 
@@ -125,14 +125,14 @@ However, an interesting fact is that current icu4c code automatically [inserts a
 
 Since when does Android ship this locale data? Android 9 [has it](https://android.googlesource.com/platform/external/icu/+/android-9.0.0_r1/icu4c/source/data/locales/pt.txt#33) since the first release. Android 8 [does not have it](https://android.googlesource.com/platform/external/icu/+/android-8.1.0_r61/icu4c/source/data/locales/pt.txt#33) even in recent releases.
 
-### How come the app developers did not notice it for several months?
+## How come the app developers did not notice it for several months?
 
 Obviously they did not test the app in Android 9. But was it the only way they could get to know about the bug? Do they collect crash reports?
 
 It is funny that the [only uncaught exception handler](https://github.com/TimotheeJeannin/AppRate/blob/master/AppRate/src/com/tjeannin/apprate/ExceptionHandler.java) the app installs is related to app rating. Yes, it serves the only purpose of avoiding to ask users to rate the app if the app crashed at least once for them. Of course, these users would not give many stars.
 
 
-## Conclusions
+# Conclusions
 
 Perhaps it was easier to just launch an Android 8 emulator and book the flight from there. But, how could we know?
 
