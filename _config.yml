@@ -8,3 +8,5 @@ description: "From electrons to ideas: random thoughts about anything computable
 url: https://pmatias.me
 
 plugins: [jekyll-paginate]
+
+talkyard_server_url: https://comments-for-pmatias-me.talkyard.net
