@@ -6,17 +6,14 @@
     <meta name="description" content="{{ site.description | xml_escape }}">
     <meta name="author" content="Paulo Matias">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="twitter:site"    content="@thotypous">
     <meta name="twitter:creator" content="@thotypous">
     <meta name="twitter:title"   content="{{ site.description | xml_escape }}">
-
     {% if page.title %}
     <meta name="twitter:description" content="{{ page.title | xml_escape }}">
     {% else %}
     <meta name="twitter:description" content="{{ site.description | xml_escape }}">
     {% endif %}
-
     {% if page.image %}
     <meta name="twitter:card"  content="summary_large_image">
     <meta name="twitter:image" content="{{ site.url }}{{ page.image }}">
@@ -24,7 +21,6 @@
     <meta name="twitter:card"  content="summary">
     <meta name="twitter:image" content="{{ site.url }}/static/favicon.ico">
     {% endif %}
-
     <link href="/static/favicon.ico" rel="shortcut icon" sizes="16x16 32x32 48x48 64x64">
     <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
     <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
