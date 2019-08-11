@@ -8,11 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="twitter:site"    content="@thotypous">
     <meta name="twitter:creator" content="@thotypous">
-    <meta name="twitter:title"   content="{{ site.description | xml_escape }}">
     {% if page.title %}
-    <meta name="twitter:description" content="{{ page.title | xml_escape }}">
+    <meta name="twitter:title"   content="{{ page.title | xml_escape }}">
     {% else %}
-    <meta name="twitter:description" content="{{ site.description | xml_escape }}">
+    <meta name="twitter:title"   content="{{ site.description | xml_escape }}">
+    {% endif %}
+    {% if page.description %}
+    <meta name="twitter:description" content="{{ page.description | xml_escape }}">
     {% endif %}
     {% if page.image %}
     <meta name="twitter:card"  content="summary_large_image">
