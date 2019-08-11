@@ -2,6 +2,8 @@
 layout: post
 title: Running a portable amateur radio station by the Xingu River
 categories: hamradio
+tag: ham 40m
+image: /postdata/2019-08-11/05.jpg
 ---
 
 Camping at river islets in the Amazon basin is a lot of fun, but what if the agreed time comes and the boatman does not arrive to take you back? This concern has made the perfect excuse for me to finally take the exams to get an amateur radio operator license and to build a portable 40m transceiver. This article describes the adventures of camping in a Xingu River islet with my wife's branch of the family – taking the radio together, of course. Although I still could not make a QSO, it was a joy to listen to other people doing CW and to get our WSPR beacon heard by 45 stations spread through several continents.
