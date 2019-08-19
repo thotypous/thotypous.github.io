@@ -2,7 +2,7 @@
 layout: post
 title: Running a portable amateur radio station by the Xingu River
 categories: hamradio
-tag: ham 40m
+tags: ham 40m
 image: /postdata/2019-08-11/05.jpg
 ---
 
